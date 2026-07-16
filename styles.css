@@ -6,20 +6,16 @@
 /* ---- CSS Custom Properties ---- */
 :root {
     --sky-light: #dbeefb;
-    --sky-mid: #b5ddf5;
     --sky-deep: #8cc8ed;
-    --mint: #c9eee0;
     --gold: #e8c547;
-    --gold-soft: #f5dfa0;
     --white: #ffffff;
     --text-dark: #1a2a3a;
     --text-medium: #3b4d5e;
     --text-light: #6a8a9e;
-    --pink-blush: #f5cac3;
 
-    --font-cursive: 'Dancing Script', cursive;
-    --font-heading: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-    --font-body: 'DM Sans', 'Outfit', system-ui, sans-serif;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-script: 'Dancing Script', cursive;
+    --font-body: 'DM Sans', system-ui, sans-serif;
 
     --shadow-soft: 0 4px 30px rgba(140, 200, 237, 0.25);
     --shadow-card: 0 12px 40px rgba(140, 200, 237, 0.3);
@@ -44,6 +40,7 @@ html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
 }
 
 body {
@@ -116,13 +113,13 @@ body::before {
 
 /* ---- Typography ---- */
 .cursive-accent {
-    font-family: var(--font-cursive);
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-weight: 500;
 }
 
 .cursive-label {
-    font-family: var(--font-cursive);
-    font-weight: 600;
+    font-family: var(--font-script);
+    font-weight: 700;
 }
 
 /* ---- Dividers ---- */
@@ -176,36 +173,42 @@ body::before {
     align-items: center;
     position: relative;
     z-index: 2;
-    padding: 40px 24px 30px;
+    padding: 48px 24px 40px;
 }
 
 .hero-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
     align-items: center;
-    justify-content: center;
-    gap: 48px;
-    max-width: 1100px;
+    gap: clamp(28px, 5vw, 72px);
+    max-width: 1080px;
     width: 100%;
 }
 
 .hero-text {
-    flex: 1;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     perspective: 1000px;
 }
 
 .hero-title {
-    font-size: clamp(2.6rem, 5vw, 4.2rem);
-    line-height: 1.1;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    line-height: 1.02;
     color: var(--text-dark);
     text-shadow: 0 4px 24px rgba(255, 255, 255, 0.8), 0 8px 40px rgba(181, 221, 245, 0.6);
     display: flex;
     flex-direction: column;
-    letter-spacing: -0.5px;
+    letter-spacing: 0;
+    font-variation-settings: 'opsz' 120;
+}
+
+.hero-title span:last-child {
+    color: #a97824;
+    font-style: italic;
+    font-weight: 600;
 }
 
 .hosted-by {
@@ -214,44 +217,62 @@ body::before {
 }
 
 .hosted-by .label {
-    font-size: 1.15rem;
+    font-size: 0.92rem;
     color: var(--text-medium);
     margin-bottom: 2px;
 }
 
 .hosted-by .hosts {
-    font-size: 1rem;
+    font-family: var(--font-script);
+    font-size: 2rem;
+    line-height: 1.1;
     font-weight: 600;
-    letter-spacing: 4px;
+    letter-spacing: 0;
     color: var(--text-dark);
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 /* Event Details */
 .event-details {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: clamp(18px, 3vw, 34px);
+    width: 100%;
 }
 
 .detail-block {
     margin: 2px 0;
+    min-width: 155px;
 }
 
 .detail-block .label {
-    font-size: 1.3rem;
-    color: var(--text-medium);
+    font-size: 1.5rem;
+    color: #a97824;
     margin-bottom: 4px;
 }
 
 .detail-text {
-    font-size: 0.9rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 3px;
+    letter-spacing: 0.12em;
     color: var(--text-dark);
     text-transform: uppercase;
     line-height: 1.6;
+}
+
+.event-details .divider-mini {
+    width: 1px;
+    min-width: 1px;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(transparent, var(--text-light), transparent);
+    opacity: .45;
+}
+
+.event-details .divider-mini > * {
+    display: none;
 }
 
 .address-link {
@@ -284,7 +305,7 @@ body::before {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.8);
-    border-radius: var(--radius-sm);
+    border-radius: 999px;
     font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 600;
@@ -314,7 +335,6 @@ body::before {
 
 /* Hero Image */
 .hero-image {
-    flex: 0 0 360px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -330,7 +350,7 @@ body::before {
 
 .elephant-img {
     width: 100%;
-    max-width: 380px;
+    max-width: 400px;
     height: auto;
     cursor: pointer;
     filter: drop-shadow(0 15px 40px rgba(140, 200, 237, 0.5));
@@ -411,7 +431,7 @@ body::before {
 }
 
 .message-text {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-size: clamp(1.05rem, 2.4vw, 1.25rem);
     font-style: italic;
     line-height: 1.85;
@@ -448,6 +468,12 @@ body::before {
     margin-bottom: 28px;
 }
 
+.section-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 90;
+}
+
 .countdown-grid {
     display: flex;
     align-items: center;
@@ -465,7 +491,7 @@ body::before {
 }
 
 .countdown-number {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-size: clamp(2.2rem, 5vw, 3rem);
     font-weight: 700;
     color: var(--text-dark);
@@ -492,7 +518,7 @@ body::before {
 }
 
 .countdown-separator {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-size: 2.2rem;
     color: var(--gold);
     padding-bottom: 26px;
@@ -536,7 +562,7 @@ body::before {
     color: var(--white);
     text-decoration: none;
     padding: 18px 44px;
-    border-radius: var(--radius-sm);
+    border-radius: 999px;
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 1px;
@@ -645,15 +671,7 @@ body::before {
 .footer-text {
     font-size: 1rem;
     color: var(--text-medium);
-    margin-bottom: 8px;
     font-weight: 500;
-}
-
-.footer-names {
-    font-family: var(--font-cursive);
-    font-size: 1.6rem;
-    color: var(--text-dark);
-    font-weight: 700;
 }
 
 /* ============================================
@@ -754,8 +772,8 @@ body::before {
    ============================================ */
 @media (max-width: 1024px) {
     .hero-content {
-        flex-direction: column;
-        gap: 24px;
+        grid-template-columns: 1fr;
+        gap: 28px;
     }
     .hero-image {
         flex: none;
@@ -770,6 +788,14 @@ body::before {
 @media (max-width: 600px) {
     html { font-size: 15px; }
     .elephant-img { max-width: 220px; }
+    .hero { padding: 42px 20px 54px; }
+    .hero-content { gap: 22px; }
+    .hero-title { font-size: clamp(2.45rem, 12vw, 3.25rem); }
+    .hosted-by .hosts { font-size: 1.8rem; }
+    .event-details { gap: 16px; }
+    .detail-block { min-width: 0; flex: 1; }
+    .detail-text { font-size: .72rem; letter-spacing: .08em; }
+    .scroll-indicator { display: none; }
     
     .message-card { padding: 32px 24px; }
     .countdown-number { width: 72px; height: 72px; font-size: 1.9rem; }
