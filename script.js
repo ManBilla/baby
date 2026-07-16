@@ -114,7 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     // ---- Vanilla Tilt (3D hover on cards) ----
-    if (typeof VanillaTilt !== 'undefined') {
+    // Skip on touch devices — the constant transform recalculation adds
+    // scroll jank on Android and there's no mouse to drive the effect.
+    const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (typeof VanillaTilt !== 'undefined' && !isTouch) {
         VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
             max: 12,
             speed: 400,
@@ -144,8 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </svg>`;
     }
 
-    // Generate balloons
-    for (let i = 0; i < 12; i++) {
+    // Generate balloons (fewer on phones to keep scrolling smooth)
+    const BALLOON_COUNT = window.matchMedia('(max-width: 600px)').matches ? 6 : 12;
+    for (let i = 0; i < BALLOON_COUNT; i++) {
         const b = document.createElement('div');
         b.classList.add('balloon');
         const size = 35 + Math.random() * 40;
