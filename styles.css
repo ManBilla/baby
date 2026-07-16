@@ -53,6 +53,13 @@ body {
     cursor: default;
 }
 
+/* Remove Android/mobile tap-highlight flash on all tappable elements */
+a, button, img, .elephant-img, .footer-elephant, .add-cal-btn,
+.amazon-btn, .cal-option, .scroll-indicator, .address-link {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+}
+
 /* ---- Background Image (tiled sky) ---- */
 body::before {
     content: '';
@@ -353,6 +360,9 @@ body::before {
     max-width: 400px;
     height: auto;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: none;
     filter: drop-shadow(0 15px 40px rgba(140, 200, 237, 0.5));
     animation: elephantFloat 6s ease-in-out infinite;
     transition: filter 0.3s ease, transform 0.3s ease;
